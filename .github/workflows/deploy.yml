@@ -1,9 +1,12 @@
 name: Deploy to GitHub Pages
 
+
 on:
   push:
     branches:
       - main  # or your default branch
+  workflow_dispatch:
+
 
 jobs:
   build-and-deploy:
@@ -22,22 +25,26 @@ jobs:
         with:
           fetch-depth: 1
 
+
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
           node-version: '24'
 
+
       - name: Install dependencies
         run: npm ci
+
 
       - name: Build static site
         run: npm run build
 
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
         with:
-          path: ./dist
-      
+          path: './dist'
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
